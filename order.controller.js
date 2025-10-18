@@ -1,5 +1,3 @@
-/*  order.controller.js  */
-// URL base (puede venir de variable de entorno en un caso real)
 const URL_BASE = 'http://localhost:3000/api';
 
 /* ----------  Helper interno: genera links según status  ---------- */
@@ -21,7 +19,6 @@ const buildOrderLinks = (order) => {
       break;
 
     case 'Cancelled':
-      // no se añaden enlaces de acción
       break;
   }
   return links;
@@ -34,11 +31,10 @@ const getOrderDetail = (req, res) => {
   const order = {
     id: orderId,
     userId: 101,               
-    status: 'Pending',         // cambiar a 'Paid' o 'Cancelled' para probar
+    status: 'Pending',         // comprabar cambianto el peding cerrar primero el server
     total: 250.00
   };
 
-  // 3. Ensamblar cuerpo JSON con HATEOAS
   const responseBody = {
     order_id: order.id,
     user_id:  order.userId,
@@ -47,9 +43,8 @@ const getOrderDetail = (req, res) => {
     _links:   buildOrderLinks(order)
   };
 
-  // 4. Devolverlo
   res.status(200).json(responseBody);
 };
 
-
-module.exports = { getOrderDetail };
+// Exportar a index
+module.exports = { getOrderDetail }; 
